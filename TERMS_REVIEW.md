@@ -1,63 +1,53 @@
 # Terms of Service
 
-Approved pre-launch version - effective 25 October 2026. Application not implemented.
+Approved local-application version — effective 25 October 2026. Open tasks L1–L3 remain disclosed; publication does not complete them.
 
-## Purpose and current status
+## Scope
 
-PrivateFinance is a planned personal finance application developed by Alexander Richter exclusively for his own private, non-commercial use with his own bank accounts. The app has not yet been implemented and is not offered as a service to other people or businesses.
+PrivateFinance is a minimal local personal-finance application developed by Alexander Richter exclusively for his own private, non-commercial use with his own accounts. It is not offered to other users or businesses. The app displays account information, balances and transactions obtained through Enable Banking after approval. No payments are initiated.
 
-Its intended function is to display authorised account information, balances and transactions through Enable Banking. This public legal website provides documents only and cannot connect to a bank account. Publishing these documents is not a launch of the application.
+The app is implemented locally and its API registration has been checked. A complete live bank-authorisation and revocation flow has not yet been verified. Publishing the legal website does not establish app security or bank compatibility. The separate legal website provides documents only.
 
-## Scope of use
+## Permitted use and bank approval
 
-The intended use is personal financial organisation by the developer. These terms do not invite registration, grant anyone else access, or authorise commercial use. Visiting this website does not create a subscription or bank authorisation.
+Use only lawful access to the developer's own accounts. These terms do not invite public registration, create a subscription or authorise commercial use. Do not bypass bank controls or expose credentials. The bank's and Enable Banking's terms apply independently and are not expanded by these terms.
 
-Account access must be lawful, limited to the developer's own authorised accounts and consistent with the bank's and Enable Banking's applicable terms. Do not bypass authentication, access another person's information without permission or expose credentials.
+A bank connection requires approval through the bank's supported process. Supported accounts, scope, authentication and consent duration depend on the bank and provider. Restricted production access also requires the accounts to be linked to the registered application. Renewed approval may be required after expiry.
 
-## Bank access and approval
+Bank passwords and BankID security codes belong only in genuine bank or identity-provider authentication interfaces. Never submit them to PrivateFinance or its contact mailbox. Keep the computer and authentication devices secure.
 
-Any future bank connection requires the user's approval through the bank's supported authentication and authorisation process, facilitated by Enable Banking. Consent scope, validity, supported accounts and authentication depend on the bank and provider. Access may expire or require renewed approval.
+## Local operation
 
-PrivateFinance must not request or collect bank passwords or BankID security codes. Use only genuine bank or identity-provider authentication interfaces. Private RSA keys, API tokens and session credentials must not be published or embedded in frontend code.
+The app is intended to run only on computer loopback addresses over local HTTPS. Its separate self-signed TLS certificate needs an explicit browser exception or separately configured trust. Do not expose the app through a public proxy or tunnel without a new security review. Loopback is not a defence against other local programs or users.
 
-The bank's and Enable Banking's terms apply independently. This document does not expand their permissions or guarantee access to any particular bank.
+Data is retrieved on request and held in working memory as described in the Privacy Policy. Connections are temporary; the app is not a durable accounting archive. A restart may require authorisation again. There is no guaranteed export, backup, continuous refresh or uninterrupted availability.
 
-## Accuracy and availability
+## Accuracy and financial decisions
 
-Once implemented, account information may be delayed, incomplete, duplicated or unavailable. Balances and transaction status can change after retrieval. The bank's own records should be checked before any consequential decision.
+Bank data can be delayed, incomplete, duplicated or unavailable. Transaction status and balances may change after retrieval. Verify the bank's records before consequential decisions. Compatibility with any specific bank and any particular update frequency are not guaranteed.
 
-No continuous availability, particular update frequency, compatibility with a specific bank or error-free operation is promised. The app is not yet operational, and no implementation or security verification is represented by these terms.
+PrivateFinance provides information and organisation, not personalised financial, investment, tax or legal advice. The user remains responsible for decisions and should seek appropriately qualified advice when needed.
 
-## No financial advice
+## Ending use and withdrawal
 
-The planned app is an information and organisation tool. It does not provide personalised financial, investment, tax or legal advice. The user remains responsible for decisions and should seek qualified advice when needed.
+Use Disconnect or Disconnect all to request deletion of the corresponding Enable Banking sessions. When deletion fails, the app blocks reading and offers retry. Session deletion closes bank-side consent automatically only where supported. Check the bank's own consent controls if access remains shown or the result is uncertain.
 
-## Stopping use and revoking access
-
-The developer may stop using the app and withdraw bank access through the bank's available consent controls, contacting the bank for assistance where needed. Enable Banking provides session deletion, but automatic bank-side consent closure is only available where supported.
-
-No app-specific disconnect or deletion control exists yet. Authentication, session termination and stopping future retrieval must be implemented and tested before bank-data processing. Withdrawal of access does not automatically delete previously retrieved information. The outstanding implementation tasks and planned data handling are described in the Privacy Policy (../privacy/).
+Closing a tab does not revoke access. Normal app shutdown attempts revocation, but a crash, forced exit, network interruption or uncertain authorisation-code exchange can leave consent active. Stopping retrieval does not automatically erase information already processed by providers. Storage and deletion are described in the Privacy Policy.
 
 ## Responsibility and liability
 
-To the extent permitted by applicable law, no guarantee is given that future account information will always be current, complete or suitable for a particular decision, or that the app or third-party systems will always be available.
+To the extent permitted by applicable law, there is no guarantee that account data is always current, complete or suitable for a particular decision, or that the app and third-party systems are always available.
 
-Any responsibility for loss is determined by applicable law. Where the law permits, responsibility does not extend to losses that were not reasonably foreseeable or were caused solely by a third-party failure beyond the developer's reasonable control. This does not exclude responsibility for the developer's own failures where the law imposes it.
+Responsibility for loss is determined by applicable law. Where legally permissible, it does not extend to loss that was not reasonably foreseeable or caused solely by third-party failure outside the developer's reasonable control. This does not exclude responsibility for the developer's own failures where the law imposes it.
 
-Nothing excludes or limits liability for fraud, intentional misconduct, gross negligence, death or personal injury where exclusion is unlawful, or any other liability that cannot lawfully be limited. Mandatory consumer rights, remedies and access to courts, if applicable, remain unaffected.
+Nothing excludes or limits liability for fraud, intentional misconduct, gross negligence, death or personal injury where exclusion is unlawful, or any other liability that cannot lawfully be limited. Mandatory consumer rights, remedies and access to courts, where applicable, remain unaffected.
 
-## Future changes and applicable law
+## Changes, law and contact
 
-These terms document the current personal-development scope. Offering the app to other users or using it commercially requires a separate review before that change. Applicable law governs any legal rights and obligations; no exclusive court or foreign governing law is selected here.
-
-The documents must be reviewed before real bank-data processing begins. Material changes to the intended use or actual data handling require updated documents. If any provision is unenforceable, the rest applies to the extent it can lawfully operate independently.
-
-## Contact and document status
+The app is solely for the developer's private use. Other users or commercial use require review before the change. Applicable law governs the parties' rights and duties; no exclusive court or foreign governing law is chosen. If a provision is unenforceable, the remainder applies to the extent it can lawfully operate independently.
 
 Alexander Richter
-Email: majarichanders@outlook.com (mailto:majarichanders@outlook.com)
 
-Effective date: 25 October 2026, for the scope stated above. They do not claim that an app exists or that the development tasks in the Privacy Policy (../privacy/) have been completed.
+Email: majarichanders@outlook.com
 
-Do not send bank credentials, BankID security codes, private keys or sensitive financial records in an initial message.
-
+Do not send bank credentials, private keys or financial histories in an initial message. These terms are effective from 25 October 2026. The open tasks in the Privacy Policy remain open until completed and verified.

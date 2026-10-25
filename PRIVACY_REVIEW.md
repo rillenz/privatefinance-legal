@@ -1,106 +1,93 @@
 # Privacy Policy
 
-Approved pre-launch version - effective 25 October 2026. Application not implemented.
+Approved local-application version — effective 25 October 2026. Open tasks L1–L3 remain disclosed; publication does not complete them.
 
-## Purpose and current status
+## Purpose and scope
 
-PrivateFinance is a planned personal finance application developed by Alexander Richter exclusively for his own private, non-commercial use with his own bank accounts. It is not offered to other users, households or businesses.
+PrivateFinance is a minimal local personal-finance application developed by Alexander Richter exclusively for his own private, non-commercial use with his own accounts. It is not offered to other users or businesses. The app can request authorised account information through Enable Banking; it does not initiate payments.
 
-The application has not yet been implemented. There is currently no PrivateFinance application collecting, retrieving or storing bank information. This notice describes the current development stage and intended functionality; it does not claim that planned features or security controls already exist.
+The app has been implemented locally and its API registration has been checked. The complete live bank-authorisation, callback and revocation flow has not yet been verified with the developer's accounts. A successful registration check does not establish that these bank interactions work.
 
-This public website provides legal information only. It has no bank connection features and does not receive bank credentials, balances or transactions.
+The public legal website and the local app are separate. The legal website does not receive bank credentials, balances or transactions. The local app communicates with Enable Banking only for requested operations and session termination.
 
 ## Developer and privacy context
 
 Alexander Richter
-Email: majarichanders@outlook.com (mailto:majarichanders@outlook.com)
 
-Alexander Richter is the developer and intended sole user. The GDPR household exemption may be relevant to his own processing carried out exclusively in a personal or household capacity. This is not a blanket exemption for Enable Banking, banks, GitHub or email providers, whose own processing must be considered separately.
+Email: majarichanders@outlook.com
 
-If the app is offered to others or its purpose changes, privacy responsibilities, any applicable lawful bases and this notice must be reassessed before that change. No commercial service or general public access is authorised by this notice.
+The developer is the sole intended user. The GDPR household exemption may be relevant to his processing exclusively in a personal or household capacity. This is not a blanket exemption for banks, Enable Banking, GitHub or email providers. If the users, purpose or operating model changes, responsibilities and any applicable lawful bases must be reassessed before that change.
 
-## Planned account information
+## Account information and minimisation
 
-The planned purpose is to display the developer's own accounts, balances and transactions using Enable Banking. Depending on the bank, granted permissions and implemented features, relevant information may include:
+When the developer approves a connection, information may include account identifiers and IBANs, names/descriptions, products, currency, bank and consent metadata, balances and their dates/types, and transactions including amounts, currencies, dates, descriptions, status, references and counterparty details. Transaction descriptions can concern others or reveal sensitive information.
 
-- Account identifiers such as IBANs, account names, holder details, currencies, bank names and other account metadata.
+The API returns account metadata during authorisation. The app retains the account identifiers and descriptive fields needed to identify permitted accounts, rather than retaining the complete account response. Displayed balance and transaction responses are reduced to fields needed by the interface. The app does not perform advertising, unrelated profiling, financial scoring or automated decisions with legal or similarly significant effects.
 
-- Balances, balance types and timestamps.
+Balances and transactions are fetched only when requested. Transactions are requested for a chosen UTC date range, defaulting to 30 days, and one API page at a time. The UI indicates whether another page is available. No automatic financial-data refresh is implemented.
 
-- Transactions, amounts, currencies, dates, status, descriptions, references and counterparty information.
+## Authentication and authorisation
 
-- Connection and consent metadata, account/session identifiers, expiry information and necessary technical error information.
+The developer chooses a bank and is redirected through Enable Banking to the supported bank-authentication process. The bank may require strong customer authentication such as BankID. Bank passwords and BankID security codes must be entered only in genuine bank or identity-provider interfaces; PrivateFinance does not provide fields to collect them.
 
-These are possible categories, not a record of data already collected. Transaction details may also concern other people or reveal sensitive information. The intended purpose is personal financial organisation, not unrelated profiling or advertising.
+The app supports private-user redirect authentication. It requests balances and transactions for accounts approved by the user. In restricted production mode, those accounts must also be linked to the registered application in Enable Banking. Account linking and API authorisation are separate steps.
 
-TODO P1 — Before bank-data processing: select and document the exact fields, permissions, purposes, recipients and necessary logs; limit collection to the implemented personal-finance features.
+The backend validates a random, browser-session-bound, expiring state and exchanges the returned authorisation code for a session. The code and provider session identifier are not sent to frontend JavaScript. The callback response redirects to a clean local URL without the code or state.
 
-## Authentication and approval
+TODO L1 — Before relying on real account access, complete and document a live own-account test of authorisation, the local HTTPS certificate and callback, expiry and revocation. Current automated tests use a simulated provider.
 
-The planned connection uses Enable Banking to facilitate the bank's supported authentication and authorisation process. The user must approve the requested account access, and the bank may require strong customer authentication, for example BankID. No bank access is granted by visiting this website or reading these documents.
+## Providers and processing locations
 
-PrivateFinance must not collect bank passwords, BankID security codes or equivalent authentication secrets. Those belong only in the bank's or identity provider's genuine authentication interface. They must not be sent through this website or by email.
+The app process runs locally; no third-party app-hosting or database service is configured. Outgoing account-information API requests go to Enable Banking, which interacts with the bank. The bank's and Enable Banking's own terms and notices govern their processing. See https://auth.enablebanking.com/privacy and the relevant bank's privacy information.
 
-For use in Enable Banking's restricted production mode, the intended accounts must be linked to the application. Linking an account does not replace the API authorisation required to retrieve its data. Availability, permitted scope and access duration depend on the bank and provider.
+No claim is made that all processing is local or confined to a particular country. Provider processing locations, roles and transfer arrangements are not established merely by the app running locally.
 
-TODO P2 — Before bank-data processing: implement and test bank redirects, requested permissions, expiry, renewal, cancellation, session invalidation and the stopping of background retrieval. Document the actual disconnection steps.
+TODO L2 — Review the applicable provider terms and privacy information for this registration, record the relevant entities/roles and processing locations, and establish any required transfer safeguards before real bank-data processing. No controller/processor relationship is assumed without assessment.
 
-## Enable Banking and other providers
+## Keys, tokens and local access protection
 
-Enable Banking is the planned API provider for authorised account information. Its processing and the bank's own processing are governed by their applicable information and terms. See Enable Banking's account-information privacy notice (https://auth.enablebanking.com/privacy) and the relevant bank's privacy information.
+The private application RSA key is read by the backend from a configured private file outside the served assets. In the checked WSL configuration, private-file ownership and restrictive permissions are verified before loading. The key is not embedded in frontend code, stored in this repository or sent to the browser. API requests use RS256-signed JWTs with a five-minute lifetime. Provider session IDs remain in backend memory; the browser uses separate random local handles.
 
-No application hosting provider, database service, deployment region or international-transfer arrangement has yet been selected for PrivateFinance. This must not be read as a promise of local-only or EEA-only processing. The legal website's intended hosting is addressed separately below.
+The app explicitly binds IPv4 and IPv6 loopback, rejects non-loopback peers and unexpected Host/Origin values, and implements CSRF and framing protection. Loopback restricts network access; it does not isolate the app from other programs or users on the same computer. The app has no separate user login.
 
-TODO P3 — Before bank-data processing: document the actual provider entities and roles, applicable agreements, any app hosting or other recipients, processing locations and any international transfers and required safeguards.
+The local HTTPS connection uses a separate self-signed certificate, generated for localhost for 90 days. The browser must explicitly accept it or trust it through a separately reviewed setup. No system-wide trust change is installed automatically. Outgoing API HTTPS uses the runtime's normal certificate validation. These statements describe the implementation and local checks, not an independent security audit or a guarantee of absolute security.
 
-## Private keys, tokens and protection
+The application writes no bank-data, token, credential or callback-query logs. Only fixed startup/shutdown and generic status messages are written to the terminal. Keys are files protected by permissions; no file-encryption, full-disk-encryption, swap or crash-dump protection has been verified.
 
-Enable Banking authenticates application API requests with JWTs signed using the application's private RSA key. These application credentials are separate from the user's bank login and approval.
+TODO L3 — Establish the developer's procedure for an exposed key, including disabling/replacing the affected application credentials through Enable Banking and withdrawing affected bank access. OS and browser protection require their own assessment.
 
-The implementation requirements are to keep private signing keys and API/session credentials out of frontend code, public repositories, URLs and ordinary logs; limit access to the components that require them; and replace exposed credentials and terminate affected sessions as appropriate. Private RSA keys must not be delivered to a browser.
+## Storage, retention and deletion
 
-These are requirements for the future application, not verified statements about an existing implementation. No claim is made about encryption at rest, a particular key vault, backup protection or a completed security audit.
+There is no bank-data database, file-based transaction history, export or application backup. API tokens are created for requests and not persisted. Account/connection metadata and pagination state remain in backend memory; displayed financial information also exists in the browser page's memory. The app sends no-store headers and uses no localStorage, sessionStorage or service worker.
 
-TODO P4 — Before bank-data processing: implement and verify credential storage and access, token lifetimes, transport and storage protection, log redaction, key rotation, backup protection and incident handling. Record the actual controls in this notice.
+The browser uses one temporary Secure, HttpOnly, SameSite=Lax local session cookie. The local session expires after eight hours. A bank session is requested for no more than one day, subject to a lower bank maximum; a bank-side consent can have a different duration.
 
-## Minimisation, retention and deletion
+On local-session expiry, the app attempts provider-session deletion. When deletion is confirmed, connection records are removed. If revocation fails, further account reads are blocked, account metadata and pagination state are released, and records needed for retry can remain in backend memory beyond eight hours until revocation succeeds or the process exits.
 
-No retention period or application storage architecture has been set because the app has not been built. Whether retrieved information will remain transient or be saved, and how copies, caches, logs and backups will be handled, must be decided before real bank data is processed.
-
-The implementation should retrieve only necessary information and retain it only for the documented personal-finance purpose. Authorisation expiry and deletion of information already retrieved are different events.
-
-TODO P5 — Before bank-data processing: define and test storage locations, retention periods or criteria, cache and log expiry, deletion of retained information and expiry of backup copies. Update this notice with the actual arrangements.
+Disconnecting clears the associated view and confirmed connection. The Hide details control clears the current account view but does not revoke bank access. Reloading clears the current view but may keep the connection active in backend memory. Closing a tab alone does not revoke access. Normal process shutdown attempts to delete known sessions; process exit releases its application memory but does not guarantee erasure from RAM, browser internals, operating-system swap, crash dumps or screenshots.
 
 ## Withdrawing access
 
-Bank access can be withdrawn through the bank's consent or connected-services controls where available; contact the bank if those controls cannot be found. Enable Banking also offers session deletion, which closes bank consent automatically where possible. Deleting an application session must not be assumed to revoke every bank-side consent immediately.
+Use Disconnect or Disconnect all in the app. The backend calls Enable Banking's session-deletion endpoint. On failure the UI blocks further reading and offers a retry. The bank's consent controls should also be used if access remains shown or the outcome is uncertain. Enable Banking closes bank-side consent automatically only where supported.
 
-PrivateFinance has no implemented disconnect or deletion interface yet. Its future procedure must be tested before use, as identified in TODO P2 and TODO P5. Stopping access does not by itself erase data already retrieved.
+A crash, forced exit, network failure or uncertain code-exchange outcome can leave bank consent active. Bank controls may then be required even if the local app no longer has its session ID. Deleting a session does not itself erase information already processed by the bank or provider.
 
-Where a processing activity relies on GDPR consent, withdrawal does not affect the lawfulness of processing based on that consent before withdrawal. Bank-access approval should not be treated as a blanket GDPR legal basis for every subsequent use.
+Where processing relies on GDPR consent, withdrawing consent does not affect earlier lawful processing. Bank access authorisation does not automatically establish the GDPR lawful basis for every use.
 
 ## Rights where GDPR applies
 
-Where GDPR applies, and subject to its conditions, individuals may have rights to information, access, rectification, erasure, restriction, portability and objection. Where consent is the legal basis, it may be withdrawn. A complaint may be made to the competent supervisory authority, including Sweden's IMY (https://www.imy.se/en/) where relevant.
+Where applicable and subject to legal conditions, individuals may have rights to information, access, rectification, erasure, restriction, portability and objection, withdrawal of consent where that is the basis, and a complaint to a competent supervisory authority such as Sweden's IMY. Listing these rights does not make GDPR applicable to exempt household processing.
 
-These rights are conditional and do not by themselves make the GDPR applicable to exempt personal or household processing. Each provider's obligations require a separate assessment.
+Send project privacy questions or requests to Alexander Richter at majarichanders@outlook.com. Do not send credentials, private keys or full financial histories in an initial message.
 
-Privacy questions or requests concerning this project may be sent to Alexander Richter at majarichanders@outlook.com (mailto:majarichanders@outlook.com). Requests will need to be assessed according to the activity and applicable law. Do not send bank credentials, private keys or full transaction histories in an initial message.
+## Public website and correspondence
 
-## This website and correspondence
+The separate GitHub Pages legal website has no analytics, advertising, external fonts, tracking scripts, cookies or browser storage. GitHub logs visitor IP addresses for security under its own privacy information: https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection and https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement .
 
-This static website uses no analytics, tracking scripts, advertising, cookies or browser storage. Fonts, styling and the optional theme script are served with the site. A manually chosen theme is not stored and lasts only for the current page.
+Unlike that legal website, the local app uses the necessary temporary session cookie described above. External legal links in the app contact the relevant website when followed. No external runtime assets are loaded.
 
-The website is intended for GitHub Pages hosting. GitHub states that it logs visitors' IP addresses for security. See GitHub's Pages documentation (https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection) and GitHub's privacy statement (https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement). External websites are contacted when their links are followed.
+The contact link opens the user's email application. Correspondence is handled by the email services involved and may be retained in the mailbox; no fixed correspondence retention period has been established. Share only information necessary for the question.
 
-The contact link opens your email application; this website does not contain a contact form. If you choose to email the project, your address and message will be processed by the email services involved and may be retained in correspondence. No fixed correspondence-retention period has been established. Share only what is necessary for the question and do not send financial records or authentication secrets.
+## Updates and status
 
-## Contact and updates
-
-Alexander Richter
-Email: majarichanders@outlook.com (mailto:majarichanders@outlook.com)
-
-This version concerns a project under development, not an operational banking application. It must be updated before processing bank data and before any material change in users, purpose or providers. The implementation tasks marked above remain open.
-
-Effective date: 25 October 2026. Publication does not mean that the application is ready or that its security has been verified.
-
+This version is effective from 25 October 2026. It describes the local implementation but leaves L1–L3 open. Those tasks must not be represented as completed by publishing these documents. Review this notice before material changes in users, purposes, providers or actual processing.

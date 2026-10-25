@@ -1,47 +1,36 @@
-# Legal review — approved pre-launch version
+# Legal review — approved local-application version
 
-Approved: 25 October 2026. After receiving links to both revised documents and the disclosure of all five outstanding TODOs, the owner explicitly answered “Yes” to publication of this pre-launch version.
+Approved and effective: 25 October 2026. The owner explicitly stated: “Ja, jag godkänner de uppdaterade juridiska texterna. Publicera dem.” Approval covers the full updated Privacy Policy and Terms of Service provided in `privatefinance-local/legal-review/`, with L1–L3 disclosed.
 
-## Confirmed by the owner
+## Scope and evidence
 
-- Public developer/contact name: Alexander Richter.
-- Public email: majarichanders@outlook.com (provided by the owner; mailbox delivery has not been tested).
-- App exclusively for the developer's own private use; no other users or commercial offering.
-- App code does not exist yet. The notice therefore does not claim operational bank processing or verified production controls.
+- Alexander Richter, majarichanders@outlook.com; exclusively the developer's own private, non-commercial use.
+- The local implementation now exists. The documents describe actual loopback binding, local self-signed HTTPS, server-side RSA handling, five-minute JWTs, a necessary temporary local session cookie, in-memory account handling and manual financial-data requests.
+- API registration, active PRODUCTION/AIS and the exact callback were verified. The owner reports linking a bank account to Enable Banking; this does not itself verify authorisation and retrieval through the local app.
+- Automated backend and simulated browser callback tests passed. No complete real own-account bank flow is claimed.
+- The public legal website remains static, with no bank integration, cookies, browser storage, analytics or external runtime resources. It must not be confused with the separate local app's session cookie and API calls.
+- No claim of disk encryption, guaranteed secure memory erasure or a completed independent security audit is made. No unverified legal entity, address, governing jurisdiction or controller/processor relationship has been invented.
 
-## Scope for approval
+## Remaining disclosed tasks
 
-The owner approved publication of the **pre-launch legal-information website only**, with P1–P5 still open. This does not approve processing real bank data, establish security compliance, resolve the implementation tasks below, or guarantee Enable Banking acceptance.
-
-The household exemption is described conditionally; no blanket GDPR exemption or unverified controller/processor relationship is asserted. No particular application hosting, encryption, retention period or implemented disconnect button is promised. No governing country, street address or company registration has been invented. Email correspondence and GitHub hosting are distinguished from the future bank-data application.
-
-## All remaining public TODOs
-
-| ID | Must be resolved before bank-data processing |
+| ID | Approved open disclosure |
 | --- | --- |
-| P1 | Select actual data fields, permissions, purposes, recipients and necessary logs; implement minimisation. |
-| P2 | Implement and test authorisation, redirects, expiry/renewal/cancellation, session termination and stopping background retrieval; document disconnection. |
-| P3 | Identify actual providers/entities and roles, agreements, hosting/recipients, processing locations and international-transfer safeguards. |
-| P4 | Implement and verify key/token storage and access, lifetimes, transport/storage protection, log redaction, rotation, backup protection and incident handling. |
-| P5 | Define storage, retention periods/criteria, cache and log expiry, deletion and backup expiry; test and document. |
+| L1 | Complete and document a live own-account authorisation, local certificate/callback, expiry and revocation test. |
+| L2 | Review provider terms, entities/roles, processing locations and any required transfer safeguards. |
+| L3 | Establish the exposed-key procedure and separately assess OS/browser protection. |
 
-The former 16 placeholders have been replaced with the confirmed identity, sole-use scope and current non-implementation status. The five unresolved implementation tasks remain expressly marked **TODO** in the policy; terms refer to them. No missing implementation detail is treated as verified or silently removed.
+The former pre-launch P1–P5 have been replaced by implementation descriptions and these three specific remaining tasks. Publication does not mark them complete, authorise third-party/commercial use, or guarantee Enable Banking acceptance.
 
-## Publication procedure after explicit approval
+## Release controls
 
-1. Record the owner's approval of this specific pre-launch version, including publication with P1–P5 still open.
-2. Set the website publication/effective date, replace draft banners with the continuing pre-launch status, and set all three HTML `data-status` values to `approved-prelaunch`. Preserve the statement that the application is not implemented and all five TODO disclosures.
-3. Update the two readable review copies from the HTML if approval involves text edits; keep them consistent.
-4. Run `python3 scripts/check.py --release`. Draft status is blocked. Only the five expressly disclosed pre-launch task IDs are allowed.
-5. Commit only explicit website files, never the parent directory or any credentials. Configure Pages, push, watch deployment, then verify both public pages return HTTP 200 and contain approved text and contact details.
-6. Before real bank-data processing, resolve P1–P5, revise the notice to the actual implementation and review again. The current checker deliberately accepts only the approved pre-launch scope; adapt it during that review.
+All three HTML pages are marked `approved-local-app`. Release checks require the approved local-implementation statement and precisely the known L1–L3 task IDs, and still reject draft/awaiting-approval labels. Relative links, fragments, the public-file allowlist, common credential patterns and JavaScript network/storage patterns are checked. Prose may mention browser storage APIs as part of the privacy explanation; the actual legal-site script is checked for their use.
 
-Approval has been recorded, draft labels have been replaced, and both documents retain the pre-launch disclosures and five TODOs. Deployment status is available in the repository’s GitHub Actions history; public URL and content verification is performed after deployment.
+Only explicit legal-site files are committed. No local-app source, bank keys, application configuration or financial information is included. GitHub Actions stages only the five public HTML/CSS/JS files. Deployment success and public HTTP/content checks are verified after push; see Actions history for the deployed revision.
 
 ## Primary references consulted
 
 - Enable Banking API authentication and session deletion: https://enablebanking.com/docs/api/reference
-- Enable Banking privacy information: https://enablebanking.com/privacy-policy/
+- Enable Banking privacy information: https://auth.enablebanking.com/privacy
 - IMY on the personal/household exemption: https://www.imy.se/privatperson/dataskydd/introduktion-till-gdpr/nar-gdpr-inte-galler/
 - European Commission on GDPR rights: https://commission.europa.eu/law/law-topic/data-protection/information-individuals_en
 - Your Europe on privacy-notice requirements: https://europa.eu/youreurope/business/governance-and-sustainability/digital-and-data-compliance/data-protection-gdpr/index_en.htm

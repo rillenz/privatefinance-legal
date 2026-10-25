@@ -2,7 +2,7 @@
 
 A dependency-free, responsive static legal-information website. System light/dark themes, an accessible per-page theme switch, English documents, keyboard navigation, print styles and relative project-repository URLs. No cookies, browser storage, analytics, external fonts or bank integration.
 
-**Status: pre-launch legal website approved by the owner on 25 October 2026.** See [LEGAL_REVIEW.md](LEGAL_REVIEW.md) for the five remaining implementation TODO items. The application does not exist yet. Approval covers publication of this pre-launch legal website with the five implementation tasks disclosed; it does not authorise processing bank data or guarantee registration acceptance. See the repository Actions history for deployment status.
+**Status: local-application legal website approved by the owner on 25 October 2026.** See [LEGAL_REVIEW.md](LEGAL_REVIEW.md) for the three remaining verification/review TODO items. The separate local app is implemented and its API registration has been checked. The complete live own-account bank flow remains unverified. Approval covers this updated legal website with L1–L3 disclosed; it does not mark them complete or guarantee registration acceptance. See the repository Actions history for deployment status.
 
 ## Files
 
@@ -31,7 +31,7 @@ The theme follows the OS unless overridden using the button. No preference is st
 
 ## Before publishing
 
-Review [LEGAL_REVIEW.md](LEGAL_REVIEW.md) and obtain explicit approval of the pre-launch legal text with all five TODO tasks disclosed. Record the publication date and replace draft markers with the approved pre-launch status as documented there. Keep P1–P5 visible until the app implementation has been verified; none of these tasks is resolved by publishing the legal website. The release check accepts this approved pre-launch scope and rejects draft status or unexpected TODOs:
+Review [LEGAL_REVIEW.md](LEGAL_REVIEW.md) and obtain explicit approval of the local-application legal text with all three TODO tasks disclosed. Record the publication date and replace draft markers with the approved local-application status as documented there. Keep L1–L3 visible until their actual completion is established; none is resolved by publishing the legal website. The release check accepts this approved local-application scope and rejects draft status or unexpected TODOs:
 
 ```bash
 python3 scripts/check.py --release
@@ -54,7 +54,7 @@ curl --fail --location --show-error --output /tmp/privatefinance-privacy.html --
 curl --fail --location --show-error --output /tmp/privatefinance-terms.html --write-out '%{http_code}\n' https://rillenz.github.io/privatefinance-legal/terms/
 ```
 
-Confirm the documents have the right headings, approved pre-launch text, correct contact details, all five acknowledged TODOs and no draft/awaiting-approval labels. Verify navigation, stylesheet and script under the project prefix. If permission or authentication fails, stop and report the actual error; do not claim publication.
+Confirm the documents have the right headings, approved local-application text, correct contact details, all three acknowledged TODOs and no draft/awaiting-approval labels. Verify navigation, stylesheet and script under the project prefix. If permission or authentication fails, stop and report the actual error; do not claim publication.
 
 Public addresses (verify after each deployment):
 

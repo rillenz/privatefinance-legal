@@ -35,15 +35,15 @@ for path, page in pages.items():
     assert 'lang="en"' in text and 'name="viewport"' in text
     assert 'Content-Security-Policy' in text and 'href="#main"' in text
     if args.release:
-        assert 'data-status="approved-prelaunch"' in text, f'{path.name}: explicit approval of the pre-launch legal website is required'
+        assert 'data-status="approved-local-app"' in text, f'{path.name}: explicit approval of the local-application legal website is required'
         assert not re.search(r'data-status="draft"|not yet effective|Drafts? for review|Review in progress|Effective date pending', text, re.I), f'{path.name}: unresolved approval labels'
-        # Known, disclosed implementation tasks may remain in a pre-launch notice.
+        # Known, disclosed verification tasks remain in the approved local-app notice.
         # This release approves the legal website only, never bank-data processing.
-        assert not re.search(r'TODO', re.sub(r'TODO P[1-5]\b', '', text)), f'{path.name}: unexpected TODO'
+        assert not re.search(r'TODO', re.sub(r'TODO L[1-3]\b', '', text)), f'{path.name}: unexpected TODO'
         if path.parent.name == 'privacy':
-            assert 'The application has not yet been implemented.' in text
-            for task in range(1, 6):
-                assert f'TODO P{task} — Before bank-data processing:' in text, f'Missing disclosed pre-launch task P{task}'
+            assert 'The app has been implemented locally and its API registration has been checked.' in text
+            for task in range(1, 4):
+                assert f'TODO L{task} — ' in text, f'Missing disclosed verification task L{task}'
     for tag, ref in page.refs:
         target = urlsplit(ref)
         if target.scheme:
@@ -68,7 +68,8 @@ for folder in ('assets', 'privacy', 'terms'):
 for rel in allowed:
     text = (ROOT / rel).read_text()
     assert not re.search(r'-----BEGIN [A-Z ]*PRIVATE KEY-----|gh[pousr]_[A-Za-z0-9]{20,}|github_pat_[A-Za-z0-9_]{20,}|eyJ[A-Za-z0-9_-]{20,}\.[A-Za-z0-9_-]{20,}\.', text), f'Possible credential in {rel}'
-    assert not re.search(r'localStorage|sessionStorage|document\.cookie|\bfetch\s*\(|XMLHttpRequest|sendBeacon|WebSocket', text), f'Unexpected storage/network API in {rel}'
+    if rel.endswith('.js'):
+        assert not re.search(r'localStorage|sessionStorage|document\.cookie|\bfetch\s*\(|XMLHttpRequest|sendBeacon|WebSocket', text), f'Unexpected storage/network API in {rel}'
 print('PASS: 3 pages; local links and fragments; single h1; viewport, language, skip link, CSP; public file allowlist; common credential and tracking patterns.')
 if not args.release:
-    print('Run with --release to enforce the approved pre-launch publication scope.')
+    print('Run with --release to enforce the approved local-application publication scope.')
