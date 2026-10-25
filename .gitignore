@@ -1,0 +1,32 @@
+# Credentials and environment
+.env
+.env.*
+*.key
+*.pem
+*.p12
+*.pfx
+*.jks
+*.keystore
+*.token
+*secret*
+*credential*
+id_rsa*
+id_ed25519*
+.ssh/
+.config/
+# Personal financial records, local storage and logs
+/data/
+/backups/
+/exports/
+*.db
+*.sqlite*
+*.csv
+*.ofx
+*.qfx
+*.log
+# Generated and local files
+_site/
+node_modules/
+__pycache__/
+.DS_Store
+Thumbs.db
